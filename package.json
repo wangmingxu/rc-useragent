@@ -1,6 +1,6 @@
 {
   "name": "rc-useragent",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "a universal useragent react component",
   "main": "index.js",
   "scripts": {
@@ -22,5 +22,6 @@
     "@babel/plugin-transform-react-jsx": "^7.0.0-rc.3",
     "@babel/preset-env": "^7.0.0-rc.3",
     "rimraf": "^2.6.2"
-  }
+  },
+  "typings": "index.d.ts"
 }

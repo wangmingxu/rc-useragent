@@ -15,6 +15,8 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var getDefaultUA = function getDefaultUA() {
   return navigator.userAgent;
 };
@@ -22,6 +24,14 @@ var getDefaultUA = function getDefaultUA() {
 var ClientDetect =
 /*#__PURE__*/
 function () {
+  ClientDetect.getInstance = function getInstance() {
+    if (!ClientDetect.instance) {
+      ClientDetect.instance = new ClientDetect();
+    }
+
+    return ClientDetect.instance;
+  };
+
   function ClientDetect(ua, extraRules) {
     if (ua === void 0) {
       ua = getDefaultUA();
@@ -30,6 +40,10 @@ function () {
     if (extraRules === void 0) {
       extraRules = {};
     }
+
+    _defineProperty(this, "source", '');
+
+    _defineProperty(this, "rules", {});
 
     this.source = ua;
     this.rules = Object.assign({}, extraRules);
@@ -48,7 +62,7 @@ function () {
 
   _proto.checkDeviceType = function checkDeviceType() {
     if (this.isIPhone) {
-      if ([812, 724, 690].includes(screen.height) && screen.width === 375) {
+      if (this.isIPhoneX) {
         return 'IPhoneX';
       }
 
@@ -128,10 +142,17 @@ function () {
 
       return false;
     }
+  }, {
+    key: "isIPhoneX",
+    get: function get() {
+      return this.isIPhone && [812, 724, 690].includes(screen.height) && screen.width === 375;
+    }
   }]);
 
   return ClientDetect;
 }();
+
+_defineProperty(ClientDetect, "instance", null);
 
 var _default = ClientDetect;
 exports.default = _default;

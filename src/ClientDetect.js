@@ -1,6 +1,19 @@
 const getDefaultUA = () => navigator.userAgent;
 
 class ClientDetect {
+  static instance = null;
+
+  static getInstance() {
+    if (!ClientDetect.instance) {
+      ClientDetect.instance = new ClientDetect();
+    }
+    return ClientDetect.instance;
+  }
+
+  source = '';
+
+  rules = {};
+
   constructor(ua = getDefaultUA(), extraRules = {}) {
     this.source = ua;
     this.rules = Object.assign({}, extraRules);
